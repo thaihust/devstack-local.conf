@@ -2,6 +2,7 @@
 # The name of the RECLONE environment variable is a bit misleading.  It doesn't actually
 # reclone repositories, rather it uses git fetch to make sure the repos are current.
 RECLONE=True
+HOST_IP=192.168.2.21
 
 enable_service rabbit
 # still not available in CentOS (as of 11/13/2015)
@@ -44,6 +45,12 @@ SFC_UPDATE_OVS=False
 # Skydive
 enable_plugin skydive https://github.com/skydive-project/skydive.git refs/tags/v0.9.0
 enable_service skydive-agent skydive-analyzer
+
+SKYDIVE_ANALYZER_LISTEN=${HOST_IP}:8082
+SKYDIVE_AGENT_ANALYZERS=${HOST_IP}:8082
+SKYDIVE_AGENT_LISTEN=${HOST_IP}:8081
+SKYDIVE_AGENT_ETCD=http://${HOST_IP}:2379
+SKYDIVE_CONFIG_FILE=/opt/stack/skydive.yaml
 
 #HEAT
 disable_service h-eng
