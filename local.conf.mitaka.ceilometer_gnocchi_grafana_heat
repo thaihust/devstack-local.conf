@@ -1,0 +1,65 @@
+[[local|localrc]]
+DEST=/opt/stack
+
+ADMIN_PASSWORD=password
+MYSQL_PASSWORD=password
+RABBIT_PASSWORD=password
+SERVICE_PASSWORD=password
+SERVICE_TOKEN=tokentoken
+HOST_IP=172.16.235.128
+
+ENABLED_SERVICES=key,rabbit,mysql,horizon
+ENABLED_SERVICES+=,n-api,n-crt,n-cpu,n-net,n-cond,n-sch,n-novnc,n-cauth
+ENABLED_SERVICES+=,g-api,g-reg
+
+ENABLED_SERVICES+=,heat,h-api,h-api-cfn,h-api-cw,h-eng
+
+enable_plugin ceilometer https://git.openstack.org/openstack/ceilometer
+enable_service ceilometer
+
+
+enable_plugin gnocchi https://github.com/openstack/gnocchi master
+enable_service gnocchi-api,gnocchi-metricd
+enable_service gnocchi-grafana
+
+
+# Enabling Neutron (network) Service
+disable_service n-net
+enable_service q-svc
+enable_service q-agt
+enable_service q-dhcp
+enable_service q-l3
+enable_service q-meta
+enable_service q-metering
+enable_service neutron
+
+## Neutron options
+FIXED_RANGE=10.0.0.0/24
+FIXED_NETWORK_SIZE=256
+NETWORK_GATEWAY=10.0.0.1
+PRIVATE_SUBNET_NAME=privateA
+
+PUBLIC_SUBNET_NAME=public-subnet
+FLOATING_RANGE=172.16.235.0/24
+PUBLIC_NETWORK_GATEWAY=172.16.235.2
+##Q_FLOATING_ALLOCATION_POOL=start=192.168.27.102,end=192.168.27.110
+PUBLIC_INTERFACE=eth0
+Q_USE_PROVIDERNET_FOR_PUBLIC=True
+OVS_PHYSICAL_BRIDGE=br-ex
+PUBLIC_BRIDGE=br-ex
+OVS_BRIDGE_MAPPINGS=public:br-ex
+
+LIBVIRT_TYPE=qemu
+
+IMAGE_URLS="http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-uec.tar.gz"
+
+SCREEN_LOGDIR=/opt/stack/screen-logs
+SYSLOG=True
+LOGFILE=~/devstack/stack.sh.log
+
+
+Q_USE_DEBUG_COMMAND=True
+
+# RECLONE=No
+RECLONE=yes
+OFFLINE=False
