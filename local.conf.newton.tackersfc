@@ -18,6 +18,7 @@ NEUTRON_BRANCH=stable/newton
 SWIFT_BRANCH=stable/newton
 HEAT_BRANCH=stable/newton
 TROVE_BRANCH=stable/newton
+TACKER_BRANCH=stable/newton
 
 #NOVA
 enable_service n-novnc
@@ -51,12 +52,6 @@ SKYDIVE_AGENT_ANALYZERS=${HOST_IP}:8082
 SKYDIVE_AGENT_LISTEN=${HOST_IP}:8081
 SKYDIVE_AGENT_ETCD=http://${HOST_IP}:2379
 SKYDIVE_CONFIG_FILE=/opt/stack/skydive.yaml
-
-#HEAT
-disable_service h-eng
-disable_service h-api
-disable_service h-api-cfn
-disable_service h-api-cw
 
 #SWIFT
 disable_service swift
