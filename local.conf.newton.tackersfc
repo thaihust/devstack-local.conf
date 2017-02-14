@@ -72,13 +72,6 @@ enable_plugin tacker https://git.openstack.org/openstack/tacker stable/newton
 enable_plugin networking-sfc git://git.openstack.org/openstack/networking-sfc stable/newton
 SFC_UPDATE_OVS=False
 
-# Heat
-enable_plugin heat https://git.openstack.org/openstack/heat stable/newton
-IMAGE_URL_SITE="http://download.fedoraproject.org"
-IMAGE_URL_PATH="/pub/fedora/linux/releases/25/CloudImages/x86_64/images/"
-IMAGE_URL_FILE="Fedora-Cloud-Base-25-1.3.x86_64.qcow2"
-IMAGE_URLS+=","$IMAGE_URL_SITE$IMAGE_URL_PATH$IMAGE_URL_FILE
-
 enable_service n-novnc
 enable_service n-cauth
 
