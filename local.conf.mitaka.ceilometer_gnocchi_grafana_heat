@@ -1,65 +1,108 @@
 [[local|localrc]]
-DEST=/opt/stack
-
-ADMIN_PASSWORD=password
-MYSQL_PASSWORD=password
-RABBIT_PASSWORD=password
-SERVICE_PASSWORD=password
-SERVICE_TOKEN=tokentoken
+# The name of the RECLONE environment variable is a bit misleading.  It doesn't actually
+# reclone repositories, rather it uses git fetch to make sure the repos are current.
+RECLONE=True
 HOST_IP=192.168.2.21
 
-ENABLED_SERVICES=key,rabbit,mysql,horizon
-ENABLED_SERVICES+=,n-api,n-crt,n-cpu,n-net,n-cond,n-sch,n-novnc,n-cauth
-ENABLED_SERVICES+=,g-api,g-reg
+enable_service rabbit
+# still not available in CentOS (as of 11/13/2015)
+disable_service zookeeper
 
-ENABLED_SERVICES+=,heat,h-api,h-api-cfn,h-api-cw,h-eng
+# Branches (these are set by the devstack checkout, but better safe than sorry)
+HORIZON_BRANCH=stable/newton
+KEYSTONE_BRANCH=stable/newton
+NOVA_BRANCH=stable/newton
+GLANCE_BRANCH=stable/newton
+CINDER_BRANCH=stable/newton
+NEUTRON_BRANCH=stable/newton
+SWIFT_BRANCH=stable/newton
+HEAT_BRANCH=stable/newton
+TROVE_BRANCH=stable/newton
+CEILOMETER_BRANCH=stable/newton
 
-enable_plugin ceilometer https://git.openstack.org/openstack/ceilometer
-enable_service ceilometer
+#NOVA
+enable_service n-novnc
 
-
-enable_plugin gnocchi https://github.com/openstack/gnocchi master
-enable_service gnocchi-api,gnocchi-metricd
-enable_service gnocchi-grafana
-
-
-# Enabling Neutron (network) Service
+#NEUTRON
 disable_service n-net
+enable_service q-dhcp
 enable_service q-svc
 enable_service q-agt
-enable_service q-dhcp
 enable_service q-l3
 enable_service q-meta
-enable_service q-metering
+#enable_service q-lbaas
+#enable_service q-vpnaas
 enable_service neutron
+Q_PLUGIN=ml2
+enable_plugin neutron https://github.com/openstack/neutron
+enable_service q-qos
+ENABLE_TENANT_TUNNELS=True
+Q_ML2_TENANT_NETWORK_TYPE=vxlan
 
-## Neutron options
-FIXED_RANGE=10.0.0.0/24
-FIXED_NETWORK_SIZE=256
-NETWORK_GATEWAY=10.0.0.1
-PRIVATE_SUBNET_NAME=sub_private
-
-PUBLIC_SUBNET_NAME=sub_public
-FLOATING_RANGE=192.168.2.0/24
-PUBLIC_NETWORK_GATEWAY=192.168.2.1
-##Q_FLOATING_ALLOCATION_POOL=start=192.168.2.60,end=192.168.2.89
-PUBLIC_INTERFACE=eth0
+#PUBLIC NETWORK CONFIGURATION
 Q_USE_PROVIDERNET_FOR_PUBLIC=True
+FLOATING_RANGE=192.168.2.0/24
+Q_FLOATING_ALLOCATION_POOL="start=192.168.2.60,end=192.168.2.89"
+PUBLIC_NETWORK_GATEWAY=192.168.2.1
+PUBLIC_INTERFACE=eth0
+
+#PRIVATE NETWORK CONFIGURATION
+FIXED_RANGE=10.0.0.0/24
+NETWORK_GATEWAY=10.0.0.1
+
+# Required for l3-agent to connect to external-network-bridge
+Q_L3_ENABLED=True
+Q_USE_SECGROUP=True
 OVS_PHYSICAL_BRIDGE=br-ex
 PUBLIC_BRIDGE=br-ex
 OVS_BRIDGE_MAPPINGS=public:br-ex
 
-LIBVIRT_TYPE=qemu
+# Tacker and SFC
+enable_plugin tacker https://git.openstack.org/openstack/tacker stable/newton
+enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc stable/newton
+SFC_UPDATE_OVS=False
 
-IMAGE_URLS="http://download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-uec.tar.gz"
+# Skydive
+enable_plugin skydive https://github.com/skydive-project/skydive.git refs/tags/v0.9.0
+enable_service skydive-agent skydive-analyzer
 
-SCREEN_LOGDIR=/opt/stack/screen-logs
-SYSLOG=True
-LOGFILE=~/devstack/stack.sh.log
+SKYDIVE_ANALYZER_LISTEN=${HOST_IP}:8082
+SKYDIVE_AGENT_ANALYZERS=${HOST_IP}:8082
+SKYDIVE_AGENT_LISTEN=${HOST_IP}:8081
+SKYDIVE_AGENT_ETCD=http://${HOST_IP}:2379
+SKYDIVE_CONFIG_FILE=/opt/stack/skydive.yaml
 
+#SWIFT
+disable_service swift
 
-Q_USE_DEBUG_COMMAND=True
+#CEILOMETER
+enable_plugin ceilometer https://git.openstack.org/openstack/ceilometer stable/newton
+enable_service ceilometer
 
-# RECLONE=No
-RECLONE=yes
-OFFLINE=False
+#GNOCCHI
+enable_plugin gnocchi https://github.com/openstack/gnocchi stable/3.1
+enable_service gnocchi-api,gnocchi-metricd
+enable_service gnocchi-grafana
+
+#PASSWORDS
+MYSQL_PASSWORD=welcome123
+SERVICE_TOKEN=welcome123
+SERVICE_PASSWORD=welcome123
+ADMIN_PASSWORD=welcome123
+RABBIT_PASSWORD=welcome123
+
+#ETC...
+VOLUME_BACKING_FILE_SIZE=2048M
+API_RATE_LIMIT=False
+#VERBOSE=FALSE
+SCREEN_LOGDIR=$DEST/logs/screen
+DATA_DIR=/opt/data
+SUBNETPOOL_PREFIX_V4=192.168.2.0/24
+
+# Q_BUILD_OVS_FROM_GIT=True
+
+VIRT_DRIVER=libvirt
+# To use nested KVM, un-comment the below line
+LIBVIRT_TYPE=kvm
+# If you have `dnf` package manager, use it to improve speedups in DevStack build/tear down
+# export YUM=dnf
