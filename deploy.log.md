@@ -13,3 +13,11 @@ sudo pip install -U os-testr
 ### 2. Testing (on ubuntu server 16.04.2)
 - status: failure
 - local.conf.newton.tackersfc_ceilometer_gnocchi_grafana
+- notes:
+
+```sh
+export no_proxy=192.168.58.0/8,localhost,127.0.0.0/8,.localdomain
+cd ~/devstack
+echo "ENABLE_IDENTITY_V2=False" >> local.conf
+sed 's/export OS_IDENTITY_API_VERSION=${IDENTITY_API_VERSION:-2.0}/export OS_IDENTITY_API_VERSION=3/' openrc
+```
