@@ -38,25 +38,7 @@ enable_service q-qos
 ENABLE_TENANT_TUNNELS=True
 Q_ML2_TENANT_NETWORK_TYPE=vxlan
 
-#PUBLIC NETWORK CONFIGURATION
-Q_USE_PROVIDERNET_FOR_PUBLIC=True
-FLOATING_RANGE=192.168.2.0/24
-Q_FLOATING_ALLOCATION_POOL="start=192.168.2.60,end=192.168.2.89"
-PUBLIC_NETWORK_GATEWAY=192.168.2.1
-PUBLIC_INTERFACE=eth0
-
-#PRIVATE NETWORK CONFIGURATION
-FIXED_RANGE=10.0.0.0/24
-NETWORK_GATEWAY=10.0.0.1
-
-# Required for l3-agent to connect to external-network-bridge
-Q_L3_ENABLED=True
-Q_USE_SECGROUP=True
-OVS_PHYSICAL_BRIDGE=br-ex
-PUBLIC_BRIDGE=br-ex
-OVS_BRIDGE_MAPPINGS=public:br-ex
-
-# Tacker and SFC
+# SFC
 enable_plugin tacker https://git.openstack.org/openstack/tacker stable/newton
 enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc stable/newton
 
@@ -69,6 +51,12 @@ SKYDIVE_AGENT_ANALYZERS=${HOST_IP}:8082
 SKYDIVE_AGENT_LISTEN=${HOST_IP}:8081
 SKYDIVE_AGENT_ETCD=http://${HOST_IP}:2379
 SKYDIVE_CONFIG_FILE=/opt/stack/skydive.yaml
+
+#HEAT
+disable_service h-eng
+disable_service h-api
+disable_service h-api-cfn
+disable_service h-api-cw
 
 #SWIFT
 disable_service swift
