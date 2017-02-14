@@ -19,5 +19,4 @@ sudo pip install -U os-testr
 export no_proxy=192.168.2.0/24,localhost,127.0.0.0/8,.localdomain
 cd ~/devstack
 echo "ENABLE_IDENTITY_V2=False" >> local.conf
-sed -i 's/export OS_IDENTITY_API_VERSION=${IDENTITY_API_VERSION:-2.0}/export OS_IDENTITY_API_VERSION=3/' openrc
 ```
