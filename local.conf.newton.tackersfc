@@ -59,7 +59,6 @@ OVS_BRIDGE_MAPPINGS=public:br-ex
 # Tacker and SFC
 enable_plugin tacker https://git.openstack.org/openstack/tacker stable/newton
 enable_plugin networking-sfc https://git.openstack.org/openstack/networking-sfc stable/newton
-SFC_UPDATE_OVS=False
 
 # Skydive
 enable_plugin skydive https://github.com/skydive-project/skydive.git refs/tags/v0.9.0
