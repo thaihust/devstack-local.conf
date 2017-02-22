@@ -33,6 +33,7 @@ ENABLE_VERBOSE_LOG_LEVEL=True
 Q_PLUGIN=ml2
 Q_AGENT=openvswitch
 Q_ML2_TENANT_NETWORK_TYPE=vxlan
+Q_ML2_PLUGIN_MECHANISM_DRIVERS=opendaylight
 Q_L3_ENABLED=True
 SKIP_OVS_INSTALL=True
 
@@ -62,8 +63,6 @@ OVS_BRIDGE_MAPPINGS=public:br-ex
 enable_plugin tacker https://git.openstack.org/openstack/tacker stable/newton
 enable_plugin networking-sfc git://git.openstack.org/openstack/networking-sfc stable/newton
 enable_plugin networking-odl http://git.openstack.org/openstack/networking-odl stable/newton
-SKIP_OVS_INSTALL=True
-Q_ML2_PLUGIN_MECHANISM_DRIVERS=opendaylight
 
 enable_service n-novnc
 enable_service n-cauth
