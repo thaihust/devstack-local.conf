@@ -49,7 +49,7 @@ PUBLIC_PHYSICAL_NETWORK=public
 #PRIVATE NETWORK CONFIGURATION
 FIXED_RANGE=10.10.10.0/24
 NETWORK_GATEWAY=10.10.10.1
-ODL_MGR_IP=192.168.2.21
+ODL_MGR_IP=$HOST_IP
 ODL_MODE=allinone
 ODL_NETVIRT_KARAF_FEATURE=config standard region package kar ssh management odl-restconf-all odl-aaa-authn odl-dlux-all odl-groupbasedpolicy-ovssfc odl-ovsdb-sfc odl-ovsdb-sfc-rest odl-ovsdb-openstack odl-netvirt-openstack odl-sfc-model odl-sfc-provider odl-sfc-provider-rest odl-sfc-ovs odl-sfc-openflow-renderer odl-sfc-ui
 ODL_PORT=8080
