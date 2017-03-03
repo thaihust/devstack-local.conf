@@ -1,8 +1,9 @@
-### 1. Successful deployment on ubuntu server 14.04.3
+### 1. Successful deployment on ubuntu server 14.04.3 and 16.04.2
 - local.conf.newton.neutronsfc
 - local.conf.newton.tackersfc
+- local.conf.newton.tacker_odl (tacker-->networking-sfc-->odl allinone setup with OVS NSH 2.6.1, being tested)
 
-Before running ./stack.sh, execute the following command to install essential packages:
+Note for ubuntu 14.04: before running ./stack.sh, execute the following command to install essential packages:
 
 ```sh
 sudo apt-get install python-pip -y
