@@ -83,3 +83,4 @@ VIRT_DRIVER=libvirt
 LIBVIRT_TYPE=kvm
 # If you have `dnf` package manager, use it to improve speedups in DevStack build/tear down
 # export YUM=dnf
+disable_service tempest
