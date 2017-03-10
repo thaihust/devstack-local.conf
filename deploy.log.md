@@ -18,6 +18,14 @@ sudo add-apt-repository ppa:openjdk-r/ppa
 sudo apt-get update   
 ```
 
+Fix noVNC error keycode: wait for installation complete, then:
+
+```sh
+cd /opt/stack/noVNC
+git checkout v0.6.0
+```
+Reload VM console!
+
 ### 2. Testing (on ubuntu server 16.04.2)
 - status: failure
 - local.conf.newton.tackersfc_ceilometer_gnocchi_grafana
