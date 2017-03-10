@@ -11,6 +11,13 @@ sudo pip install --upgrade pip
 sudo pip install -U os-testr
 ```
 
+Note for ubuntu 16.04: fix skydive plugin error(openjdk has no candidate) before running ./stack.sh
+
+```sh
+sudo add-apt-repository ppa:openjdk-r/ppa  
+sudo apt-get update   
+```
+
 ### 2. Testing (on ubuntu server 16.04.2)
 - status: failure
 - local.conf.newton.tackersfc_ceilometer_gnocchi_grafana
