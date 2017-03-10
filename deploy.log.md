@@ -18,7 +18,7 @@ sudo add-apt-repository ppa:openjdk-r/ppa
 sudo apt-get update   
 ```
 
-Fix noVNC error keycode: wait for installation to complete, then:
+Fix noVNC error keycode: wait for the installation to complete, then:
 
 ```sh
 cd /opt/stack/noVNC
