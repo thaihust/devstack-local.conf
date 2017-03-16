@@ -1,8 +1,9 @@
-_Add user stack before installation:
+_Add user stack before installation:_
+
 ```sh
 adduser stack
 echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-```_
+```
 
 ### 1. Successful deployment on ubuntu server 14.04.3 and 16.04.2
 - local.conf.newton.neutronsfc
