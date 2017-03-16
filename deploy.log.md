@@ -1,3 +1,9 @@
+_Add user stack before installation:
+```sh
+adduser stack
+echo "stack ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+```_
+
 ### 1. Successful deployment on ubuntu server 14.04.3 and 16.04.2
 - local.conf.newton.neutronsfc
 - local.conf.newton.tackersfc
@@ -36,3 +42,4 @@ export no_proxy=192.168.2.0/24,localhost,127.0.0.0/8,.localdomain
 cd ~/devstack
 echo "ENABLE_IDENTITY_V2=False" >> local.conf
 ```
+
