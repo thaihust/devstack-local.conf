@@ -1,0 +1,46 @@
+[[local|localrc]]
+
+GIT_BASE=http://github.com
+
+Q_ENABLE_DRAGONFLOW_LOCAL_CONTROLLER=True
+
+DATABASE_PASSWORD=welcome123
+RABBIT_PASSWORD=welcome123
+SERVICE_PASSWORD=welcome123
+SERVICE_TOKEN=welcome123
+ADMIN_PASSWORD=welcome123
+
+DF_REDIS_PUBSUB=True
+enable_plugin dragonflow http://github.com/openstack/dragonflow.git stable/ocata
+enable_service df-redis
+enable_service df-redis-server
+enable_service df-controller
+enable_service df-publisher-service
+
+disable_service n-net
+enable_service q-svc
+enable_service df-l3-agent
+disable_service heat
+disable_service tempest
+
+# Control node control plane and data plane ip address
+HOST_IP=10.10.0.220
+TUNNEL_ENDPOINT_IP=10.10.1.220
+PUBLIC_INTERFACE=ens4 
+FIXED_RANGE=172.17.0.0/24 
+FLOATING_RANGE=172.16.1.0/24
+Q_FLOATING_ALLOCATION_POOL=start=172.16.1.50,end=172.16.1.99
+PUBLIC_NETWORK_GATEWAY=172.16.1.1 
+
+# Enable df-metadata (Dragonflow metadata service proxy) once nova is being used.
+enable_service df-metadata
+
+# We have to disable the neutron L2 agent. DF does not use the L2 agent.
+disable_service q-agt
+
+# We have to disable the neutron dhcp agent. DF does not use the dhcp agent.
+disable_service q-dhcp
+
+[[post-config|$NEUTRON_CONF]]
+[DEFAULT]
+router_distributed=True
