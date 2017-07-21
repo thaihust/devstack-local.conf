@@ -1,0 +1,37 @@
+[[local|localrc]]
+
+DATABASE_PASSWORD=welcome123
+RABBIT_PASSWORD=welcome123
+SERVICE_PASSWORD=welcome123
+SERVICE_TOKEN=welcome123
+ADMIN_PASSWORD=welcome123
+
+enable_plugin networking-ovn http://git.openstack.org/openstack/networking-ovn
+
+disable_all_services
+enable_service n-cpu
+enable_service ovn-controller
+
+HOST_IP=10.10.0.219
+TUNNEL_ENDPOINT_IP=10.10.1.219
+PUBLIC_INTERFACE=ens4
+
+# Set this to the address of the main DevStack host running the rest of the
+# OpenStack services.
+SERVICE_HOST=10.10.0.220
+RABBIT_HOST=$SERVICE_HOST
+Q_HOST=$SERVICE_HOST
+REMOTE_DB_IP=$SERVICE_HOST
+
+# How to connect to ovsdb-server hosting the OVN SB database
+OVN_SB_REMOTE=tcp:$SERVICE_HOST:6642
+#OVN_BUILD_MODULES=False
+
+NOVA_VNC_ENABLED=True
+NOVNCPROXY_URL=http://$SERVICE_HOST:6080/vnc_auto.html
+VNCSERVER_LISTEN=$HOST_IP
+VNCSERVER_PROXYCLIENT_ADDRESS=$VNCSERVER_LISTEN
+
+# Skydive
+#enable_plugin skydive https://github.com/redhat-cip/skydive.git
+#enable_service skydive-agent
