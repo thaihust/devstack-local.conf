@@ -1,0 +1,59 @@
+[[local|localrc]]
+
+GIT_BASE=http://github.com
+
+DATABASE_PASSWORD=welcome123
+RABBIT_PASSWORD=welcome123
+SERVICE_PASSWORD=welcome123
+SERVICE_TOKEN=welcome123
+ADMIN_PASSWORD=welcome123
+PLACEMENT_PASS=welcome123
+
+Q_ENABLE_DRAGONFLOW_LOCAL_CONTROLLER=True
+
+enable_plugin dragonflow http://github.com/openstack/dragonflow.git stable/ocata
+
+disable_all_services
+enable_service n-cpu
+enable_service df-controller
+enable_service df-redis
+
+enable_service n-novnc
+
+# Compute node control plane and data plane ip address
+HOST_IP=10.10.0.219
+TUNNEL_ENDPOINT_IP=10.10.1.219
+PUBLIC_INTERFACE=ens4
+
+# Enable df-metadata (Dragonflow metadata service proxy) once nova is being used.
+enable_service df-metadata
+
+# Set this to the address of the main DevStack host running the rest of the
+# OpenStack services. (Controller node)
+
+SERVICE_HOST=10.10.0.220
+RABBIT_HOST=$SERVICE_HOST
+Q_HOST=$SERVICE_HOST
+REMOTE_DB_IP=$SERVICE_HOST
+
+# Make VNC work on compute node
+NOVA_VNC_ENABLED=True
+NOVNCPROXY_URL=http://$SERVICE_HOST:6080/vnc_auto.html
+VNCSERVER_LISTEN=$HOST_IP
+VNCSERVER_PROXYCLIENT_ADDRESS=$VNCSERVER_LISTEN
+
+[[post-config|$NEUTRON_CONF]]
+[df]
+enable_df_pub_sub = True
+pub_sub_driver = "redis_db_pubsub_driver"
+
+[[post-config|$NOVA_CONF]]
+[placement]
+os_region_name = RegionOne
+project_domain_name = Default
+project_name = service
+auth_type = password
+user_domain_name = Default
+auth_url = http://controller:35357/v3
+username = placement
+password = $PLACEMENT_PASS
