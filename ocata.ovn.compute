@@ -5,6 +5,7 @@ RABBIT_PASSWORD=welcome123
 SERVICE_PASSWORD=welcome123
 SERVICE_TOKEN=welcome123
 ADMIN_PASSWORD=welcome123
+PLACEMENT_PASS=welcome123
 
 enable_plugin networking-ovn http://git.openstack.org/openstack/networking-ovn
 
@@ -35,3 +36,14 @@ VNCSERVER_PROXYCLIENT_ADDRESS=$VNCSERVER_LISTEN
 # Skydive
 #enable_plugin skydive https://github.com/redhat-cip/skydive.git
 #enable_service skydive-agent
+
+[[post-config|$NOVA_CONF]]
+[placement]
+os_region_name = RegionOne
+project_domain_name = Default
+project_name = service
+auth_type = password
+user_domain_name = Default
+auth_url = http://controller:35357/v3
+username = placement
+password = $PLACEMENT_PASS
