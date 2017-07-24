@@ -6,7 +6,7 @@ SERVICE_PASSWORD=welcome123
 SERVICE_TOKEN=welcome123
 ADMIN_PASSWORD=welcome123
 
-enable_plugin networking-ovn http://git.openstack.org/openstack/networking-ovn
+enable_plugin networking-ovn http://git.openstack.org/openstack/networking-ovn stable/ocata
 enable_service ovn-northd
 enable_service ovn-controller
 
