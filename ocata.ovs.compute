@@ -15,6 +15,7 @@ MYSQL_PASSWORD=welcome123
 RABBIT_PASSWORD=welcome123
 SERVICE_PASSWORD=welcome123
 SERVICE_TOKEN=welcome123
+PLACEMENT_PASS=welcome123
 
 ENABLED_SERVICES=n-cpu,neutron,q-agt
 disable_service tempest
@@ -43,3 +44,14 @@ NOVA_VNC_ENABLED=True
 NOVNCPROXY_URL=http://$SERVICE_HOST:6080/vnc_auto.html
 VNCSERVER_LISTEN=$HOST_IP
 VNCSERVER_PROXYCLIENT_ADDRESS=$VNCSERVER_LISTEN
+
+[[post-config|$NOVA_CONF]]
+[placement]
+os_region_name = RegionOne
+project_domain_name = Default
+project_name = service
+auth_type = password
+user_domain_name = Default
+auth_url = http://$SERVICE_HOST:35357/v3
+username = placement
+password = $PLACEMENT_PASS
