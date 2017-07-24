@@ -54,6 +54,6 @@ project_domain_name = Default
 project_name = service
 auth_type = password
 user_domain_name = Default
-auth_url = http://controller:35357/v3
+auth_url = http://$SERVICE_HOST:35357/v3
 username = placement
 password = $PLACEMENT_PASS
