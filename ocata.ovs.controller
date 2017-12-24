@@ -1,4 +1,5 @@
 [[local|localrc]]
+GIT_BASE=http://git.openstack.org
 DEST=/opt/stack
 
 LOGFILE=$DEST/logs/stack.sh.log
