@@ -1,6 +1,7 @@
 [[local|localrc]]
 GIT_BASE=http://git.openstack.org
 DEST=/opt/stack
+#OFFLINE=True
 
 LOGFILE=$DEST/logs/stack.sh.log
 VERBOSE=True
