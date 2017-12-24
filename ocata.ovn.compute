@@ -1,5 +1,6 @@
 [[local|localrc]]
 
+GIT_BASE=http://git.openstack.org
 DATABASE_PASSWORD=welcome123
 RABBIT_PASSWORD=welcome123
 SERVICE_PASSWORD=welcome123
