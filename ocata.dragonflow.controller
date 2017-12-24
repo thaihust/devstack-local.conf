@@ -1,6 +1,6 @@
 [[local|localrc]]
-
 GIT_BASE=http://github.com
+#OFFLINE=True
 
 Q_ENABLE_DRAGONFLOW_LOCAL_CONTROLLER=True
 
