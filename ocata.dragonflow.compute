@@ -1,6 +1,6 @@
 [[local|localrc]]
-
 GIT_BASE=http://github.com
+#OFFLINE=True
 
 DATABASE_PASSWORD=welcome123
 RABBIT_PASSWORD=welcome123
